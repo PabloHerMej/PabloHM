@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMINA | Cinematography Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Config & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cine-black': '#050505',
+                        'cine-dark': '#121212',
+                        'cine-gray': '#2A2A2A',
+                        'cine-gold': '#C4A484',
+                    },
+                    fontFamily: {
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'display': ['"Cinzel"', 'serif'],
+                        'sans': ['"Inter"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'grain': "url('https://grainy-gradients.vercel.app/noise.svg')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C4A484; 
+        }
+
+        /* Animation Utilities */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image Hover Effect */
+        .portfolio-item:hover .overlay {
+            opacity: 1;
+        }
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Modal Animation */
+        #video-modal {
+            transition: opacity 0.3s ease;
+        }
+        #video-modal.hidden {
+            pointer-events: none;
+            opacity: 0;
+        }
+        #video-modal.flex {
+            pointer-events: auto;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-cine-black text-white font-sans antialiased selection:bg-cine-gold selection:text-black">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 px-6 md:px-12 flex justify-between items-center mix-blend-difference text-white">
+        <a href="#" class="font-display text-2xl tracking-widest font-bold">LUMINA</a>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8 text-sm tracking-widest uppercase">
+            <a href="#work" class="hover:text-cine-gold transition-colors">Work</a>
+            <a href="#reel" class="hover:text-cine-gold transition-colors">Showreel</a>
+            <a href="#about" class="hover:text-cine-gold transition-colors">Profile</a>
+            <a href="#contact" class="hover:text-cine-gold transition-colors">Contact</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="menu-btn" class="md:hidden text-white">
+            <i data-lucide="menu" class="w-8 h-8"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-cine-black z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8">
+        <button id="close-menu" class="absolute top-6 right-6">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <a href="#work" class="mobile-link text-3xl font-serif hover:text-cine-gold">Work</a>
+        <a href="#reel" class="mobile-link text-3xl font-serif hover:text-cine-gold">Showreel</a>
+        <a href="#about" class="mobile-link text-3xl font-serif hover:text-cine-gold">Profile</a>
+        <a href="#contact" class="mobile-link text-3xl font-serif hover:text-cine-gold">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen w-full overflow-hidden flex items-center justify-center">
+        <!-- Hero Background Image (Placeholder for a video background) -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2071&auto=format&fit=crop" 
+                 class="w-full h-full object-cover opacity-60" 
+                 alt="Cinematography Set">
+            <div class="absolute inset-0 bg-gradient-to-b from-cine-black/30 via-cine-black/20 to-cine-black"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl fade-up">
+            <p class="text-cine-gold uppercase tracking-[0.3em] text-sm mb-4">Director of Photography</p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 leading-tight">
+                Capturing the <br/><span class="italic text-gray-300">Unspoken</span>
+            </h1>
+            <div class="flex flex-col md:flex-row gap-4 justify-center mt-8">
+                <a href="#reel" class="border border-white/30 bg-white/5 backdrop-blur-sm px-8 py-3 uppercase tracking-widest text-sm hover:bg-white hover:text-black transition-all duration-300">
+                    Watch Showreel
+                </a>
+                <a href="#work" class="px-8 py-3 uppercase tracking-widest text-sm hover:text-cine-gold transition-colors flex items-center justify-center gap-2">
+                    View Portfolio <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Work / Portfolio Section -->
+    <section id="work" class="py-24 px-6 md:px-12 bg-cine-black relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-end mb-16 fade-up">
+                <div>
+                    <h2 class="font-display text-4xl text-white mb-2">Selected Works</h2>
+                    <div class="h-0.5 w-12 bg-cine-gold"></div>
+                </div>
+                <div class="hidden md:flex space-x-6 text-sm text-gray-400">
+                    <button class="filter-btn text-white" data-filter="all">All</button>
+                    <button class="filter-btn hover:text-white transition-colors" data-filter="narrative">Narrative</button>
+                    <button class="filter-btn hover:text-white transition-colors" data-filter="commercial">Commercial</button>
+                    <button class="filter-btn hover:text-white transition-colors" data-filter="music-video">Music Video</button>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will inject items here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Showreel Section -->
+    <section id="reel" class="py-24 bg-cine-dark border-y border-white/5 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg')"></div>
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h2 class="font-serif text-3xl md:text-5xl mb-8 fade-up">The Showreel 2025</h2>
+            <div class="relative w-full aspect-video bg-black shadow-2xl border border-white/10 group cursor-pointer fade-up" onclick="openModal('https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1')">
+                <!-- Thumbnail -->
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop" 
+                     class="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500" 
+                     alt="Reel Cover">
+                
+                <!-- Play Button -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-20 h-20 rounded-full border border-white/30 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="play" class="w-8 h-8 fill-white text-white ml-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 md:px-12 bg-cine-black">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+            <div class="w-full md:w-1/2 fade-up">
+                <div class="relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 border-t border-l border-cine-gold/50"></div>
+                    <img src="https://images.unsplash.com/photo-1543841774-4537b01d9016?q=80&w=2070&auto=format&fit=crop" 
+                         alt="Cinematographer Portrait" 
+                         class="w-full grayscale hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b border-r border-cine-gold/50"></div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 fade-up">
+                <h2 class="font-serif text-4xl mb-6">Visual Storyteller</h2>
+                <p class="text-gray-400 mb-6 leading-relaxed font-light">
+                    Light is not just illumination; it is the language of emotion. With over a decade of experience behind the lens, I specialize in crafting visuals that serve the narrative. Whether it's the gritty realism of a documentary or the polished aesthetic of a high-end commercial, my approach remains the same: honesty in every frame.
+                </p>
+                <p class="text-gray-400 mb-8 leading-relaxed font-light">
+                    Based in Los Angeles, available worldwide.
+                </p>
+
+                <div class="grid grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-white font-bold mb-2 uppercase tracking-wider text-xs">Selected Gear</h4>
+                        <ul class="text-gray-500 text-sm space-y-1">
+                            <li>ARRI Alexa Mini LF</li>
+                            <li>RED V-Raptor</li>
+                            <li>Cooke S4/i Primes</li>
+                            <li>Atlas Orion Anamorphic</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-2 uppercase tracking-wider text-xs">Expertise</h4>
+                        <ul class="text-gray-500 text-sm space-y-1">
+                            <li>Narrative Film</li>
+                            <li>Commercials</li>
+                            <li>Music Videos</li>
+                            <li>Color Grading</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Signature_sample.svg/1200px-Signature_sample.svg.png" class="h-12 opacity-50 filter invert" alt="Signature">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 md:px-12 bg-cine-dark border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center fade-up">
+            <h2 class="font-serif text-4xl md:text-5xl mb-6">Let's Create Together</h2>
+            <p class="text-gray-400 mb-12">Currently booking for Q3 & Q4 2025</p>
+            
+            <a href="mailto:hello@lumina.com" class="inline-block text-2xl md:text-4xl hover:text-cine-gold transition-colors border-b border-white/20 pb-2 mb-16">
+                hello@luminacinema.com
+            </a>
+
+            <div class="flex justify-center gap-8">
+                <a href="#" class="group flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                    <div class="p-4 border border-white/10 rounded-full group-hover:border-cine-gold transition-colors">
+                        <i data-lucide="instagram" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest">Instagram</span>
+                </a>
+                <a href="#" class="group flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                    <div class="p-4 border border-white/10 rounded-full group-hover:border-cine-gold transition-colors">
+                        <i data-lucide="vimeo" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest">Vimeo</span>
+                </a>
+                <a href="#" class="group flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                    <div class="p-4 border border-white/10 rounded-full group-hover:border-cine-gold transition-colors">
+                        <i data-lucide="linkedin" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest">LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-black text-center text-gray-600 text-xs uppercase tracking-widest">
+        <p>&copy; 2025 Lumina Cinematography. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Video Modal / Lightbox -->
+    <div id="video-modal" class="hidden fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm justify-center items-center p-4">
+        <button onclick="closeModal()" class="absolute top-6 right-6 text-white hover:text-cine-gold transition-colors">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <div class="w-full max-w-6xl aspect-video bg-black relative">
+            <!-- Iframe will be injected here -->
+            <iframe id="modal-iframe" class="w-full h-full" src="" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Portfolio Data
+        const projects = [
+            {
+                title: "Echoes of Silence",
+                category: "narrative",
+                image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop",
+                videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1" // Placeholder video
+            },
+            {
+                title: "Neon Nights",
+                category: "commercial",
+                image: "https://images.unsplash.com/photo-1550100136-e074fa714874?q=80&w=2070&auto=format&fit=crop",
+                videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1"
+            },
+            {
+                title: "Velvet Soul",
+                category: "music-video",
+                image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2070&auto=format&fit=crop",
+                videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1"
+            },
+            {
+                title: "Urban Drift",
+                category: "commercial",
+                image: "https://images.unsplash.com/photo-1478720568477-152d9b164e63?q=80&w=2038&auto=format&fit=crop",
+                videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1"
+            },
+            {
+                title: "The Last Train",
+                category: "narrative",
+                image: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=2070&auto=format&fit=crop",
+                videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1"
+            },
+            {
+                title: "Golden Hour",
+                category: "music-video",
+                image: "https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?q=80&w=1887&auto=format&fit=crop",
+                videoUrl: "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1"
+            }
+        ];
+
+        // Render Portfolio Grid
+        const grid = document.getElementById('portfolio-grid');
+        
+        function renderProjects(filter = 'all') {
+            grid.innerHTML = '';
+            projects.forEach((project, index) => {
+                if (filter === 'all' || project.category === filter) {
+                    const item = document.createElement('div');
+                    item.className = 'portfolio-item fade-up relative group overflow-hidden bg-cine-gray cursor-pointer aspect-[4/3]';
+                    item.style.animationDelay = `${index * 100}ms`;
+                    item.onclick = () => openModal(project.videoUrl);
+                    
+                    item.innerHTML = `
+                        <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+                        <div class="overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-4">
+                            <span class="text-cine-gold text-xs uppercase tracking-widest mb-2">${project.category}</span>
+                            <h3 class="font-serif text-2xl text-white italic">${project.title}</h3>
+                            <div class="mt-4 p-3 rounded-full border border-white/20 hover:bg-white hover:text-black transition-colors">
+                                <i data-lucide="play" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(item);
+                }
+            });
+            lucide.createIcons();
+            observeElements(); // Re-trigger animation observer for new elements
+        }
+
+        renderProjects();
+
+        // Filtering Logic
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Update active state
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('text-white', 'underline'));
+                e.target.classList.add('text-white');
+                
+                // Render
+                renderProjects(e.target.dataset.filter);
+            });
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('video-modal');
+        const iframe = document.getElementById('modal-iframe');
+
+        function openModal(url) {
+            iframe.src = url;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        function closeModal() {
+            iframe.src = ''; // Stop video
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on background click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black/80', 'backdrop-blur-md', 'py-4');
+                navbar.classList.remove('py-6');
+            } else {
+                navbar.classList.remove('bg-black/80', 'backdrop-blur-md', 'py-4');
+                navbar.classList.add('py-6');
+            }
+        });
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+
+        const closeMobileMenu = () => {
+            mobileMenu.classList.add('translate-x-full');
+        };
+
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+
+        // Scroll Animation Observer
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        }
+
+        observeElements();
+
+    </script>
+</body>
+</html>
